@@ -1,0 +1,34 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# ===== 虚拟环境 =====
+.venv/
+venv/
+env/
+
+# ===== 隐私 / 运行时数据（绝不入库）=====
+.env
+.env.local
+user_profile.json
+data/memory.db
+data/whitelist.json
+data/handler.log
+data/nonebot_stdout.log
+data/nonebot_stderr.log
+*.db
+*.log
+
+# ===== 编辑器 / 系统 =====
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ===== 本地语料（体积巨大，13.4GB，单独管理）=====
+corpus_dump/
+*.bz2

@@ -1,0 +1,36 @@
+[project]
+name = "qq-chat-kit"
+version = "0.1.0"
+description = "QQ 私聊代聊 + 自动扩列机器人：NoneBot2 + OneBot v11(NapCat) + LLM 编排（RAG / 去 AI 味 / 阶段策略）。衍生自 goutoujunshi，已做大量二次开发。"
+# requires-python 仅作建议下限；3.10+ 为本工程实测基线，更低版本预期兼容但未全量验证（见 README 第 10 节）
+requires-python = ">=3.8"
+dependencies = [
+    "nonebot2",
+    "nonebot-adapter-onebot",
+    "openai",
+    "python-dotenv",
+    # NoneBot 默认 driver + OneBot 反向 WS 的硬依赖（缺一则 bot.py 启动即 ImportError）
+    "fastapi",
+    "uvicorn",
+    "websockets",
+]
+
+[project.optional-dependencies]
+# 仅在使用 corpus/ 自建语料索引时需要
+rag = ["jieba", "wikiextractor"]
+
+[project.scripts]
+qq-chat-kit = "bot:main"
+
+[tool.nonebot]
+# 以下为 OneBot11 反向 WebSocket 服务端配置（NapCat 作为客户端连此地址）
+# NoneBot2 的 OneBot 适配器只从本 [tool.nonebot] 段读取 host/port/access_token。
+host = "127.0.0.1"
+port = 8080
+# access_token 留空：NoneBot2.5 仅校验 HTTP 头 Authorization: Bearer，
+# 而 NapCat 默认把 token 放在 URL query 里，会导致 403。
+# 本服务绑定 127.0.0.1（本机回环，外网不可达），鉴权由应用层
+# SUPERUSERS + 代聊白名单负责，故 OneBot 层不再叠加 token。
+onebot_access_token = ""
+
+plugins = ["plugins.chat_reply"]

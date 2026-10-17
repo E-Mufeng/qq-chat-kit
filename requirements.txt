@@ -1,0 +1,15 @@
+# 依赖清单（本机 Python 3.10+ 实测快照，非封闭/穷举清单）
+# 换 Python 版本或平台时，若某包报版本不兼容，按 README 第 10 节把该包降级到兼容版本即可，无需改代码。
+# 未写死 ==x.y.z，交 pip 自动解析兼容版本。
+nonebot2
+nonebot-adapter-onebot
+openai
+python-dotenv
+# nonebot 默认 driver 是 fastapi，缺这三样 bot.py 会在 nonebot.init() 直接 ImportError
+fastapi
+uvicorn
+# OneBot v11 反向 WebSocket 需要 websockets
+websockets
+# ===== 本地语料 RAG（corpus/，可选；不装也能跑）=====
+jieba                 # 中文分词：FTS5 索引与查询都要先分词
+wikiextractor         # 解析维基百科 xml.bz2 dump（成熟开源抽取器）
